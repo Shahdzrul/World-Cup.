@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+<button id="start">
+START CAST
+</button>
+
+<video
+autoplay
+muted
+playsinline
+style="width:100%">
+</video>
+
+<script src="app.js"></script>
+
+<script>
+
+socket.onopen=()=>{
+socket.send(
+JSON.stringify({
+type:"broadcaster"
+})
+);
+};
+
+document
+.getElementById(
+"start"
+)
+.onclick=
+async()=>{
+
+await createPeer();
+
+const stream=
+await navigator
+.mediaDevices
+.getDisplayMedia({
+video:true
+});
+
+document
+.querySelector(
+"video"
+).srcObject=
+stream;
+
+stream
+.getTracks()
+.forEach(t=>
+pc.addTrack(
+t,
+stream
+)
+);
+
+const offer=
+await pc
+.createOffer();
+
+await pc
+.setLocalDescription(
+offer
+);
+
+socket.send(
+JSON.stringify({
+type:"offer",
+offer
+})
+);
+
+};
+
+</script>
+
+</body>
+
+</html>
