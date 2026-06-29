@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+<h2>LIVE</h2>
+
+<video
+autoplay
+playsinline
+controls
+style="width:100%">
+</video>
+
+<script src="app.js"></script>
+
+<script>
+
+socket.onopen=()=>{
+socket.send(
+JSON.stringify({
+type:"viewer"
+})
+);
+
+</script>
+
+</body>
+
+</html>
